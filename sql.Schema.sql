@@ -1,18 +1,14 @@
 -- Enable UUID extension
 create extension if not exists "uuid-ossp";
 
--- =========================
 -- PROFILES TABLE
--- =========================
 create table public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text,
   created_at timestamp with time zone default now()
 );
 
--- =========================
 -- QUERIES TABLE
--- =========================
 create table public.queries (
   id uuid primary key default uuid_generate_v4(),
   user_id uuid references auth.users(id) on delete cascade,
@@ -20,9 +16,7 @@ create table public.queries (
   created_at timestamp with time zone default now()
 );
 
--- =========================
 -- RESOURCES TABLE
--- =========================
 create table public.resources (
   id uuid primary key default uuid_generate_v4(),
   title text not null,
@@ -32,16 +26,12 @@ create table public.resources (
   created_at timestamp with time zone default now()
 );
 
--- =========================
 -- ENABLE RLS
--- =========================
 alter table public.profiles enable row level security;
 alter table public.queries enable row level security;
 alter table public.resources enable row level security;
 
--- =========================
 -- RLS POLICIES
--- =========================
 
 -- Profiles
 create policy "Users can view their profile"
@@ -71,9 +61,7 @@ on public.resources
 for select
 using (auth.role() = 'authenticated');
 
--- =========================
 -- AUTO SET user_id FOR QUERIES
--- =========================
 create or replace function set_query_user_id()
 returns trigger as $$
 begin
