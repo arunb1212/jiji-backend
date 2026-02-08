@@ -19,7 +19,7 @@ The backend accepts user questions, securely logs them, fetches relevant learnin
   - Row Level Security (RLS)
 
 ---
-
+```
 ## Project Structure
 learn-with-jiji-backend/
 │
@@ -35,7 +35,7 @@ learn-with-jiji-backend/
 
 
 ---
-
+```
 ## How to Run Locally
 
 ### 1. Clone the repository
@@ -58,12 +58,14 @@ http://localhost:3000
 ```
 
 Request Body
+``` bash
 {
   "query": "Explain RAG"
 }
 
-
+```
 Response
+```
 {
   "answer": "Retrieval-Augmented Generation (RAG) combines information retrieval with language models to provide more accurate answers.",
   "resources": [
@@ -79,3 +81,4 @@ Response
     }
   ]
 }
+```
